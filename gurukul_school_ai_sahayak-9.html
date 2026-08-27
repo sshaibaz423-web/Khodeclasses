@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>गुरुकुल — School AI Sahayak</title>
+<style>
+:root{
+  --navy:#1C2541;--navy2:#2B3A63;--paper:#F4ECD8;--paper2:#E9DFC4;
+  --gold:#E4A335;--maroon:#8B3A3A;--green:#3A5A40;--ink:#2A2118;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--navy);color:var(--ink)}
+header{padding:28px 16px 20px;text-align:center;color:var(--paper)}
+.logo{font-size:48px}.title{font-size:30px;font-weight:800;margin:5px}
+.tag{color:var(--gold);font-size:12px;letter-spacing:2px}
+main{background:var(--paper);min-height:calc(100vh - 145px);border-radius:24px 24px 0 0;padding:16px;max-width:900px;margin:auto}
+.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:12px}
+.tab{border:0;border-radius:20px;padding:10px 15px;background:var(--paper2);font-weight:700;white-space:nowrap}
+.tab.active{background:var(--navy);color:white}
+.panel{display:none}.panel.active{display:block}
+.card{background:white;border:1px solid var(--paper2);border-radius:16px;padding:16px;margin-bottom:14px}
+h2{margin-top:0;color:var(--navy)}
+textarea,input,select{width:100%;padding:12px;border:1px solid var(--paper2);border-radius:12px;font-size:16px;background:var(--paper)}
+button{cursor:pointer;border:0;border-radius:11px;padding:11px 15px;font-weight:700}
+.primary{background:var(--gold);color:var(--navy)}
+.secondary{background:var(--navy);color:white}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+#chat{height:45vh;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.msg{padding:11px 14px;border-radius:15px;max-width:88%;white-space:pre-wrap}
+.user{align-self:flex-end;background:var(--navy);color:white}
+.bot{align-self:flex-start;background:var(--paper2)}
+.note{min-height:160px}
+.q{padding:14px;border:1px solid var(--paper2);border-radius:12px;margin:10px 0;background:var(--paper)}
+.option{display:block;width:100%;text-align:left;margin:7px 0;background:white;border:1px solid var(--paper2)}
+.small{font-size:13px;color:#665b4d}
+footer{text-align:center;color:#ddd;font-size:12px;padding:14px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🪔</div>
+  <div class="title">गुरुकुल</div>
+  <div class="tag">SCHOOL AI SAHAYAK</div>
+</header>
+
+<main>
+  <div class="tabs">
+    <button class="tab active" data-tab="home">🏠 Home</button>
+    <button class="tab" data-tab="ai">🤖 AI Chat</button>
+    <button class="tab" data-tab="study">📚 Study</button>
+    <button class="tab" data-tab="notes">📝 Notes</button>
+    <button class="tab" data-tab="quiz">🎯 Quiz</button>
+  </div>
+
+  <section id="home" class="panel active">
+    <div class="card">
+      <h2>🙏 नमस्ते! गुरुकुल में आपका स्वागत है</h2>
+      <p>पढ़ाई, सवाल, नोट्स और क्विज़ — सब एक जगह।</p>
+      <div class="row">
+        <button class="primary" onclick="openTab('ai')">🤖 AI से पूछें</button>
+        <button class="secondary" onclick="openTab('quiz')">🎯 Quiz शुरू करें</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>⚡ Quick Tools</h2>
+      <div class="row">
+        <button onclick="speak('नमस्ते, गुरुकुल में आपका स्वागत है')">🔊 बोलकर सुनाएँ</button>
+        <button onclick="saveNotes()">💾 Notes Save</button>
+        <button onclick="clearChat()">🗑️ Chat Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai" class="panel">
+    <div class="card">
+      <h2>🤖 Gurukul AI Chat</h2>
+      <p class="small">API key नीचे browser में डाल सकते हैं। Production app में key client-side रखना सुरक्षित नहीं है।</p>
+      <input id="apiKey" type="password" placeholder="AI API Key (optional)">
+      <select id="provider">
+        <option value="openai">OpenAI-compatible API</option>
+      </select>
+      <div id="chat"></div>
+      <div class="row">
+        <textarea id="prompt" rows="3" placeholder="अपना सवाल लिखें..."></textarea>
+      </div>
+      <div class="row">
+        <button class="primary" onclick="askAI()">🚀 पूछें</button>
+        <button onclick="speak(document.getElementById('prompt').value)">🔊 सुनें</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="study" class="panel">
+    <div class="card">
+      <h2>📚 Study Helper</h2>
+      <input id="subject" placeholder="Subject जैसे Mathematics">
+      <input id="topic" placeholder="Topic जैसे Trigonometry">
+      <div class="row">
+        <button class="primary" onclick="makeStudy()">📖 Study Plan</button>
+      </div>
+      <div id="studyResult" class="q"></div>
+    </div>
+  </section>
+
+  <section id="notes" class="panel">
+    <div class="card">
+      <h2>📝 My Notes</h2>
+      <textarea id="notes" class="note" placeholder="अपने notes यहाँ लिखें..."></textarea>
+      <div class="row">
+        <button class="primary" onclick="saveNotes()">💾 Save</button>
+        <button onclick="loadNotes()">📂 Load</button>
+        <button onclick="clearNotes()">🗑️ Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz" class="panel">
+    <div class="card">
+      <h2>🎯 Quick Quiz</h2>
+      <div id="quizBox"></div>
+      <button class="primary" onclick="startQuiz()">🔄 New Quiz</button>
+    </div>
+  </section>
+</main>
+
+<footer>गुरुकुल — School AI Sahayak</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+
+document.querySelectorAll('.tab').forEach(b=>{
+  b.onclick=()=>openTab(b.dataset.tab);
+});
+function openTab(id){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));
+}
+
+function addMsg(text,type){
+  const d=document.createElement('div');
+  d.className='msg '+type; d.textContent=text;
+  $('chat').appendChild(d); $('chat').scrollTop=$('chat').scrollHeight;
+}
+
+async function askAI(){
+  const key=$('apiKey').value.trim(), q=$('prompt').value.trim();
+  if(!q)return;
+  addMsg(q,'user'); $('prompt').value='';
+  if(!key){
+    addMsg('AI API key नहीं दी गई है। अभी demo mode में हूँ। अपने सवाल का उत्तर पाने के लिए API key जोड़ें।','bot');
+    return;
+  }
+  addMsg('सोच रहा हूँ…','bot');
+  const last=$('chat').lastChild;
+  try{
+    const r=await fetch('https://api.openai.com/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+      body:JSON.stringify({
+        model:'gpt-4o-mini',
+        messages:[
+          {role:'system',content:'आप गुरुकुल School AI Sahayak हैं। विद्यार्थियों को सरल हिन्दी/Hinglish में पढ़ाई समझाएँ।'},
+          {role:'user',content:q}
+        ]
+      })
+    });
+    const data=await r.json();
+    if(!r.ok) throw new Error(data.error?.message||'API error');
+    last.textContent=data.choices?.[0]?.message?.content||'उत्तर नहीं मिला।';
+  }catch(e){last.textContent='AI Error: '+e.message;}
+}
+
+function makeStudy(){
+  const s=$('subject').value||'विषय',t=$('topic').value||'Topic';
+  $('studyResult').textContent=
+`📘 ${s} — ${t}
+
+1. पहले basic definitions पढ़ें।
+2. मुख्य formulas/points लिखें।
+3. 3 solved examples करें।
+4. 5 practice questions हल करें।
+5. अंत में 10 मिनट revision करें।
+
+💡 Tip: जो समझ न आए, उसे AI Chat में पूछें।`;
+}
+
+function saveNotes(){localStorage.setItem('gurukul_notes',$('notes').value);alert('Notes save हो गए ✅')}
+function loadNotes(){$('notes').value=localStorage.getItem('gurukul_notes')||''}
+function clearNotes(){if(confirm('Notes delete करें?')){$('notes').value='';localStorage.removeItem('gurukul_notes')}}
+function clearChat(){$('chat').innerHTML=''}
+
+function speak(text){
+  if(!text)return;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+}
+
+const questions=[
+ {q:'sin 30° का मान क्या है?',o:['0','1/2','1','√3/2'],a:1},
+ {q:'भारत की राजधानी क्या है?',o:['मुंबई','दिल्ली','जयपुर','नासिक'],a:1},
+ {q:'2 + 2 × 3 = ?',o:['12','10','8','6'],a:1}
+];
+let qi=0,score=0;
+function startQuiz(){qi=0;score=0;renderQ()}
+function renderQ(){
+  const x=questions[qi];
+  if(!x){$('quizBox').innerHTML='<h3>🎉 Quiz पूरा!</h3><p>Score: '+score+'/'+questions.length+'</p>';return}
+  $('quizBox').innerHTML='<div class="q"><b>Q'+(qi+1)+'. '+x.q+'</b>'+
+    x.o.map((v,i)=>`<button class="option" onclick="answer(${i})">${v}</button>`).join('')+'</div>';
+}
+function answer(i){
+  if(i===questions[qi].a)score++;
+  qi++;renderQ();
+}
+loadNotes(); startQuiz();
+</script>
+</body>
+</html>
