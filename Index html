@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>न्यू स्विटी जनरल अँड प्रोव्हिजन</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:"Noto Sans Devanagari",Arial,sans-serif;
+  background:#f6f7fb;
+  color:#222;
+}
+
+header{
+  background:linear-gradient(135deg,#c62828,#ef5350);
+  color:white;
+  text-align:center;
+  padding:32px 18px;
+}
+
+header h1{
+  margin:0;
+  font-size:30px;
+}
+
+header p{
+  margin:10px 0 0;
+  font-size:18px;
+}
+
+.container{
+  max-width:850px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  margin:16px 0;
+  box-shadow:0 5px 20px #00000012;
+}
+
+h2{
+  color:#c62828;
+  margin-top:0;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:12px;
+}
+
+.product{
+  padding:18px 10px;
+  border:1px solid #eee;
+  border-radius:14px;
+  text-align:center;
+  background:#fff8f8;
+  font-size:17px;
+}
+
+.product span{
+  display:block;
+  font-size:28px;
+  margin-bottom:6px;
+}
+
+.info{
+  line-height:1.8;
+  font-size:17px;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.btn{
+  display:block;
+  text-decoration:none;
+  text-align:center;
+  padding:15px;
+  border-radius:12px;
+  color:white;
+  font-weight:bold;
+  font-size:17px;
+}
+
+.call{
+  background:#16803c;
+}
+
+.whatsapp{
+  background:#25D366;
+}
+
+.map{
+  background:#1976d2;
+}
+
+.address{
+  display:block;
+  text-decoration:none;
+  color:#1565c0;
+  background:#eef6ff;
+  padding:16px;
+  border-radius:12px;
+  font-weight:bold;
+  line-height:1.7;
+}
+
+footer{
+  text-align:center;
+  padding:22px;
+  color:#666;
+}
+
+@media(max-width:520px){
+  header h1{
+    font-size:24px;
+  }
+
+  .actions{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>
+न्यू स्विटी जनरल अँड प्रोव्हिजन
+</h1>
+
+<p>
+स्टेशनरी • बॅग • फूड प्रोडक्ट
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- PRODUCTS -->
+
+<section class="card">
+
+<h2>🛒 आमच्याकडे उपलब्ध</h2>
+
+<div class="products">
+
+<div class="product">
+<span>🍞</span>
+पाव / ब्रेड
+</div>
+
+<div class="product">
+<span>🍪</span>
+बिस्कीट
+</div>
+
+<div class="product">
+<span>🥛</span>
+दूध / मिल्क
+</div>
+
+<div class="product">
+<span>🥣</span>
+दही
+</div>
+
+<div class="product">
+<span>🥐</span>
+खारी
+</div>
+
+<div class="product">
+<span>✏️</span>
+स्टेशनरी
+</div>
+
+<div class="product">
+<span>👜</span>
+बॅग
+</div>
+
+<div class="product">
+<span>🛍️</span>
+इतर फूड प्रोडक्ट
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ADDRESS -->
+
+<section class="card">
+
+<h2>📍 आमचा पत्ता</h2>
+
+<a
+class="address"
+href="https://www.google.com/maps/search/?api=1&query=घोडके%20नगर%2C%20रुचा%20हॉटेलच्या%20मागे%2C%20पिंपळगाव%20बसवंत%2C%20महाराष्ट्र"
+target="_blank"
+>
+
+घोडके नगर, रुचा हॉटेलच्या मागे,<br>
+पिंपळगाव बसवंत, महाराष्ट्र
+
+<br><br>
+
+👉 पत्ता उघडण्यासाठी येथे क्लिक करा
+
+</a>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="card">
+
+<h2>📞 संपर्क</h2>
+
+<div class="info">
+
+<b>
+प्रो. विवेक राजेंद्र घोडके
+</b>
+
+<br>
+
+मोबाईल:
+<b>
+9822350100
+</b>
+
+</div>
+
+<br>
+
+
+<div class="actions">
+
+
+<!-- CALL -->
+
+<a
+class="btn call"
+href="tel:+919822350100"
+>
+📞 कॉल करा
+</a>
+
+
+<!-- WHATSAPP -->
+
+<a
+class="btn whatsapp"
+href="https://wa.me/919822350100"
+target="_blank"
+>
+🟢 WhatsApp
+</a>
+
+
+<!-- MAP -->
+
+<a
+class="btn map"
+href="https://www.google.com/maps/search/?api=1&query=घोडके%20नगर%2C%20रुचा%20हॉटेलच्या%20मागे%2C%20पिंपळगाव%20बसवंत%2C%20महाराष्ट्र"
+target="_blank"
+>
+📍 Google Maps
+</a>
+
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<footer>
+
+© न्यू स्विटी जनरल अँड प्रोव्हिजन
+
+</footer>
+
+
+</body>
+</html>
